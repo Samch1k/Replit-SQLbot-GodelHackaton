@@ -1,0 +1,25 @@
+// Project Architecture
+digraph Architecture {
+	rankdir=TB
+	client [label="Web Client
+(Browser)" shape=box]
+	flask [label="Flask App
+(main.py)" shape=box]
+	chainlit [label="Chainlit UI
+(app.py)" shape=box]
+	db [label="PostgreSQL
+Database" shape=cylinder]
+	openai [label="OpenAI API
+(GPT-4)" shape=cloud]
+	sql_chain [label="SQL Chain
+(sql_chain.py)" shape=box]
+	db_utils [label="DB Utils
+(db_utils.py)" shape=box]
+	client -> flask [label=HTTP]
+	client -> chainlit [label=WebSocket]
+	flask -> db_utils [label=queries]
+	chainlit -> sql_chain [label=queries]
+	sql_chain -> openai [label="API calls"]
+	sql_chain -> db_utils [label=executes]
+	db_utils -> db [label=SQL]
+}
